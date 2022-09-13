@@ -1,0 +1,94 @@
+<html lang="en" xmlns:th = "http://www.thymeleaf.org" xmlns:layout = "http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+    <div layout:fragment="site_content">
+        <div class="row mt-5">
+            <div class="col-6 offset-3">
+
+                <div class="row mt-2">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" th:text="#{label.add}"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{'/addItem'}" method="post" th:object="${newItem}">
+                                        <div class="form-group">
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label th:text="#{label.name}"></label>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <input type="text" class="form-control" required th:placeholder="#{label.name}" name="name">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label th:text="#{label.price}"></label>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <input type="number" class="form-control" required placeholder="0" min="0" name="price">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label th:text="#{label.amount}"></label>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <input type="number" class="form-control" required th:placeholder="#{label.amount}" name="amount">
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{label.close}"></button>
+                                                <button class="btn btn-success" th:text="#{label.save}"></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th th:text="#{label.id}"></th>
+                                <th th:text="#{label.name}"></th>
+                                <th th:text="#{label.price}"></th>
+                                <th th:text="#{label.amount}"></th>
+                                <th th:text="#{label.details}"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each = "it : ${items}">
+                                <td th:text = "${it.id}"></td>
+                                <td th:text = "${it.name}"></td>
+                                <td th:text = "${it.price} + '$'"></td>
+                                <td th:text="${it.getAmount()}"></td>
+                                <td>
+                                    <a class="btn btn-info btn-sm" th:href="@{'/details/' + ${it.id}}" th:text="#{label.details}"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
