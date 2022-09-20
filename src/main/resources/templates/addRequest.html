@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ADD PAGE</title>
+    <link rel="stylesheet" type="text/css" href="/styleForRequestProject.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container" th:insert="~{/layout/requestNavbar}"></div>
+
+    <div class="container-for-add">
+        <form th:action="@{'/addRequest'}" method="post" th:object="${newRequest}">
+
+            <div class="label">
+                <label>ФИО :</label>
+            </div>
+            <div class="label">
+                <input class="form-control" type="text" placeholder="ФИО :" required name="user_name">
+            </div>
+
+            <div class="label">
+                <label>Курс :</label>
+            </div>
+            <div class="label">
+                <select class="form-control" name="course_id" required>
+                    <option th:each="c : ${courses}" th:text="${c.name}" th:value="${c.id}"></option>
+                </select>
+            </div>
+
+            <div class="label">
+                <label>Телефон :</label>
+            </div>
+            <div class="label">
+                <input class="form-control" type="text" th:value="${'+'+ 7}" required name="phone" minlength="11" maxlength="12">
+            </div>
+
+            <div class="label">
+                <label>Комментарии :</label>
+            </div>
+            <div class="label">
+                <textarea class="form-control textarea" type="text" placeholder="Комментарии :" required name="comment"></textarea>
+            </div>
+
+            <div class="label">
+                <button class="btn btn-success">Добавить заявку</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

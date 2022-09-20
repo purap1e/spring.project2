@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>OLD REQUESTS</title>
+  <link rel="stylesheet" type="text/css" href="/styleForRequestProject.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container" th:insert="~{/layout/requestNavbar}"></div>
+
+<div class="container">
+  <div class="body-info">
+    <div class="card" th:each="rq : ${requests}">
+      <div class="card-info">
+        <div class="title" th:text="'Заявка от ' + ${rq.getUserName()}"></div>
+        <div class="sub-title">
+          <div class="course" th:text="'Курс : ' + ${rq.getCourseName().name}"></div>
+          <div class="comment" th:text="${rq.getComment()}"></div>
+        </div>
+        <div class="card-footer">
+          <div class="tel-num" th:text="'Тел : ' + ${rq.getPhone()}"></div>
+          <div class="details">
+            <a th:href="@{'/detailsRequest/' + ${rq.id}}">Подробнее</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

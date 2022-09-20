@@ -11,12 +11,9 @@ import java.util.List;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    private final ItemRepository itemRepository;
-
     @Autowired
-    public ItemServiceImpl(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-    }
+    private ItemRepository itemRepository;
+
 
     @Override
     public Item saveItem(Item item) {

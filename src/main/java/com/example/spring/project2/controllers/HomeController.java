@@ -10,12 +10,8 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-
-    private final ItemService itemService;
-
-    public HomeController(ItemService itemService) {
-        this.itemService = itemService;
-    }
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping(value = "/")
     public String getMainPage(Model model){
@@ -47,8 +43,10 @@ public class HomeController {
 
     @GetMapping(value = "/deleteItem/{id}")
     public String deleteItem(@PathVariable(name = "id") Long id) {
+
         itemService.deleteItem(id);
         return "redirect:/";
     }
+
 
 }

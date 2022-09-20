@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>DETAILS</title>
+  <link rel="stylesheet" type="text/css" href="/styleForRequestProject.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container" th:insert="~{/layout/requestNavbar}"></div>
+
+<div class="container">
+  <div class="details-text success">Обработанная заявка</div>
+</div>
+
+<div class="container-for-add">
+  <form>
+
+    <input type="hidden" name="id" th:value="${rq.id}">
+
+    <div class="label">
+      <label>ФИО :</label>
+    </div>
+    <div class="label">
+      <input class="form-control" type="text" th:value="${rq.userName}" readonly="readonly">
+    </div>
+
+    <div class="label">
+      <label>Курс :</label>
+    </div>
+    <div class="label">
+      <select class="form-control" disabled>
+        <option th:text="${rq.getCourseName().name}"></option>
+      </select>
+
+    <div class="label">
+      <label>Телефон :</label>
+    </div>
+    <div class="label">
+      <input class="form-control" type="text" th:value="${rq.phone}" readonly="readonly">
+    </div>
+
+    <div class="label">
+      <label>Комментарии :</label>
+    </div>
+    <div class="label">
+      <textarea class="form-control textarea" type="text" th:text="${rq.comment}" readonly="readonly"></textarea>
+    </div>
+
+    <div class="label">
+      <a th:href="@{'/deleteRequest/' + ${rq.id}}">
+        <button type="button" class="btn btn-danger">Удалить заявку</button>
+      </a>
+    </div>
+  </form>
+
+</body>
+</html>

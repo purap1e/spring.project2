@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DETAILS</title>
+    <link rel="stylesheet" type="text/css" href="/styleForRequestProject.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container" th:insert="~{/layout/requestNavbar}"></div>
+
+  <div class="container">
+      <div class="details-text danger">***Новая необработанная заявка***</div>
+  </div>
+
+  <div class="container-for-add">
+      <form th:action="@{'/updateRequest'}" method="post" th:object="${newRequest}">
+
+          <input type="hidden" name="id" th:value="${rq.id}">
+
+          <div class="label">
+              <label>ФИО :</label>
+          </div>
+          <div class="label">
+              <input class="form-control" type="text" th:value="${rq.userName}" required name="userName">
+          </div>
+
+          <div class="label">
+              <label>Курс :</label>
+          </div>
+          <div class="label">
+              <select class="form-control" name="course_id" required>
+                  <option th:each="c : ${courses}" th:text="${c.name}" th:value="${c.id}" th:selected="${rq!=null&&rq.getCourseName()!=null&&rq.getCourseName().id==c.id}"></option>
+              </select>
+          </div>
+
+          <div class="label">
+              <label>Телефон :</label>
+          </div>
+          <div class="label">
+              <input class="form-control" type="text" th:value="${rq.phone}" required name="phone" minlength="11" maxlength="12">
+          </div>
+
+          <div class="label">
+              <label>Комментарии :</label>
+          </div>
+          <div class="label">
+              <textarea class="form-control textarea" type="text" th:text="${rq.comment}" required name="comment"></textarea>
+          </div>
+
+
+
+          <div class="label">
+              <button class="btn btn-success">Обработать заявку</button>
+
+              <a th:href="@{'/deleteRequest/' + ${rq.id}}">
+                  <button type="button" class="btn btn-danger">Удалить заявку</button>
+              </a>
+          </div>
+      </form>
+
+      <div class="label">
+          <table class="table">
+              <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>NAME</th>
+                  <th>SURNAME</th>
+                  <th>DEPARTMENT</th>
+                  <th>CHOOSE</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="cat : ${categories}">
+                  <form th:action="@{'/addCategory'}" method="post">
+                      <input type="hidden" name="request_id" th:value="${rq.id}">
+                      <input type="hidden" name="category_id" th:value="${cat.id}">
+                      <td th:text="${cat.id}"></td>
+                      <td th:text="${cat.name}"></td>
+                      <td th:text="${cat.surname}"></td>
+                      <td th:text="${cat.department}"></td>
+                      <td>
+                          <button class="button button-success">+</button>
+                      </td>
+                  </form>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+
+</body>
+</html>
